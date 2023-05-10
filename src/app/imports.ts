@@ -5,7 +5,9 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatExpansionModule} from '@angular/material/expansion';
 import { NgModule } from '@angular/core';
-
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
 	exports: [
 		MatButtonModule,
@@ -13,7 +15,10 @@ import { NgModule } from '@angular/core';
 		MatIconModule,
 		MatToolbarModule,
 		MatInputModule,
-		MatExpansionModule
+		MatExpansionModule,
+		MatSnackBarModule,
+		MatProgressSpinnerModule,
+		ReactiveFormsModule
 	],
 })
 

@@ -11,3 +11,11 @@ button {
 	margin-top: 1rem;
 	width: 15%;
 }
+::ng-deep .mat-card{
+  background-color: #000;
+}
+
+input[type="file"]
+{
+	visibility: hidden;
+}

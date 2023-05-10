@@ -3,15 +3,39 @@ ul {
 	list-style: none;
 	padding: 0;
 	margin: 0;
+	align-items: end;
 }
 a {
 	text-decoration: none;
-	color: white;
+	color: #fff;
 }
 .spacer {
-	flex: 1 1 auto;
+	/*flex: 1 1 auto;*/
 }
 
 .active {
 	background-color: red;
+}
+
+.container
+{
+
+}
+
+.container .header
+{
+
+}
+
+.container span .fstChar
+{
+	color: red;
+}
+.container
+{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: 80%;
+	width: 100%;
 }

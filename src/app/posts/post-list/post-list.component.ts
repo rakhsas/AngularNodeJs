@@ -13,14 +13,17 @@ import { NavigationExtras, Router } from '@angular/router';
 export class PostListComponent implements OnInit, OnDestroy{
 	entredTitle = "";
 	entredContent = "";
+	isLoading = false;
 	posts: Post[] = [];
 	private postsSub!: Subscription;
 	constructor(public postService: PostsService, private router: Router) {
 	}
 	ngOnInit() {
+		this.isLoading = true;
 		this.postService.getPosts();
 		this.postsSub = this.postService.getPostUpdateListener()
 		.subscribe((posts: Post[]) => {
+			this.isLoading = false;
 			this.posts =  posts;
 		});
 	}

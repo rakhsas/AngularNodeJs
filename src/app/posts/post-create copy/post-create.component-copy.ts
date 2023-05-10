@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { PostsService } from '../posts.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Post } from '../post.model';
@@ -12,6 +12,15 @@ import { Post } from '../post.model';
 export class PostCreateComponentCopy {
 	postId: any;
 	post: any = [];
+	form: FormGroup = new FormGroup({
+		'title': new FormControl(null, {
+		  validators: [Validators.required, Validators.minLength(3)]
+		}),
+		'content': new FormControl(null, {
+		  validators: [Validators.required]
+		})
+	  });
+	isLoading = false;
 	constructor (public postsService: PostsService, private route: ActivatedRoute,
 		private router: Router)
 	{
@@ -20,26 +29,33 @@ export class PostCreateComponentCopy {
 	ngOnInit() {
 		this.postId = this.route.snapshot.paramMap.get('postId');
 		if (this.postId) {
+			this.isLoading = true;
 			this.postsService.getPostById(this.postId)
 			.subscribe((post: Post[]) => {
+				this.isLoading =false
 				this.post = post;
 				this.post = post[0];
+				console.log(this.post);
+				this.form.setValue({
+					title: this.post.title,
+					content: this.post.content
+				})
 			})
 		}
 	}
-	onAddPost(form: NgForm) {
-		if (form.invalid) {
+	onAddPost() {
+		if (this.form.invalid) {
 			return;
 		}
-		this.postsService.addPost(form.value.title, form.value.content);
-		form.resetForm();
+		this.postsService.addPost(this.form.value.title, this.form.value.content);
+		this.form.reset();
 	}
-	onUpdatePost(form: NgForm)
+	onUpdatePost()
 	{
-		if (form.invalid) {
+		if (this.form.invalid) {
 			return;
 		}
-		this.postsService.updatePost(this.postId, form.value.title, form.value.content)
+		this.postsService.updatePost(this.postId, this.form.value.title, this.form.value.content)
 		this.router.navigate(['']);
 	}
 }
